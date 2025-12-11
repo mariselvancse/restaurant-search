@@ -66,42 +66,52 @@ restaurant-search-backend/
 └── README.md
 
 Screenshots Section
-Search Feature
-Search Page - images/search_page.png
+## 📸 Screenshots
 
-After Search Results - images/after_search_page.png
+### 🔵 Search Page
+![Search Page](images/search_page.png)
 
-Order Placement
-Order Success - images/order_success.png
+### After Search Results
+![After Search](images/after_search_page.png)
 
-Update Order Quantity
-Update Quantity Popup - images/update_quantity_page.png
+### 🟢 Order Success
+![Order Success](images/order_success.png)
 
-Cancel Order
-Cancel Order Page - images/cancel_order_page.png
+### 🟡 Update Quantity
+![Update Quantity](images/update_quantity_page.png)
 
-Cancel Success Page - images/cancel_success_page.png
+### 🔴 Cancel Order
+![Cancel Order](images/cancel_order_page.png)
 
-Placed Orders Management
-Placed Orders – First Page - images/placed_order_first_page.png
+### Cancel Success
+![Cancel Success](images/cancel_success_page.png)
 
-Placed Orders – Main Page - images/placed_orders_page.png
+### 🟣 Placed Orders - First Page
+![Placed Orders First Page](images/placed_order_first_page.png)
 
-Database Screens
-Database Login Page - images/db_login_page.png
+### Placed Orders - Main Page
+![Placed Orders Page](images/placed_orders_page.png)
 
-Database After Login - images/db_after_login_page.png
+### 🗄️ Database Login
+![DB Login](images/db_login_page.png)
 
-MySQL Tables - images/mysql_tables.png
+### Database After Login
+![DB After Login](images/db_after_login_page.png)
 
-MySQL Data View - images/db_page.png
+### MySQL Tables
+![MySQL Tables](images/mysql_tables.png)
 
-MySQL Values After Update - images/mysql_updated_values.png
+### MySQL Values After Update
+![MySQL Updated Values](images/mysql_updated_values.png)
 
-Backend Server Screens
-Server Starting - images/server_starting_page.png
+### 🖥️ Server Starting
+![Server Starting](images/server_starting_page.png)
 
-Server Running - images/server_running_page.png
+### Server Running
+![Server Running](images/server_running_page.png)
+
+### ❗ Error - No Data
+![No Data](images/no.png)
 
 
 
