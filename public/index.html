@@ -21,6 +21,16 @@
             padding: 15px; border-radius: 10px; white-space: pre-wrap;
             font-family: Consolas, monospace; font-size: 14px;
         }
+        .order-btn {
+            background: green;
+            margin-top: 10px;
+            width: auto;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -28,39 +38,96 @@
 <div class="container">
     <h2>Search Restaurants</h2>
 
-    <label for="dishName">Dish Name</label>
+    <label for="dishName">Dish Name *</label>
     <input type="text" id="dishName" placeholder="Enter dish name">
 
-    <label for="minPrice">Min Price</label>
-    <input type="number" id="minPrice" placeholder="">
+    <label for="minPrice">Min Price </label>
+    <input type="number" id="minPrice">
 
-    <label for="maxPrice">Max Price</label>
-    <input type="number" id="maxPrice" placeholder="">
+    <label for="maxPrice">Max Price </label>
+    <input type="number" id="maxPrice">
 
     <button onclick="searchDish()">Search</button>
+
+    <button style="background:#6f42c1;" onclick="viewOrders()">View Placed Orders</button>
 
     <div id="results"></div>
 </div>
 
 <script>
+// SEARCH DISHES
 function searchDish() {
-    const dishName = document.getElementById("dishName").value;
-    const minPrice = document.getElementById("minPrice").value;
-    const maxPrice = document.getElementById("maxPrice").value;
+    const dishName = document.getElementById("dishName").value.trim();
+    const minPrice = document.getElementById("minPrice").value.trim();
+    const maxPrice = document.getElementById("maxPrice").value.trim();
 
-    fetch(`http://localhost:3000/search/dishes?name=${dishName}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+    if (!dishName) {
+        document.getElementById("results").textContent = "❗ Please enter a dish name.";
+        return;
+    }
+
+    let apiUrl = `http://localhost:3000/search/dishes?name=${dishName}`;
+
+    if (minPrice) apiUrl += `&minPrice=${minPrice}`;
+    if (maxPrice) apiUrl += `&maxPrice=${maxPrice}`;
+
+    fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-            // Format JSON with indentation (pretty print)
-            const formattedJSON = JSON.stringify(data, null, 2);
+            let output = "";
 
-            // Display in result box
-            document.getElementById("results").textContent = formattedJSON;
+            if (!data.restaurants || data.restaurants.length === 0) {
+                output = "No data found.";
+            } else {
+                data.restaurants.forEach(item => {
+                    output += `
+Restaurant ID: ${item.restaurantId}
+Restaurant Name: ${item.restaurantName}
+City: ${item.city}
+Dish: ${item.dishName}
+Price: ₹${item.dishPrice}
+Order Count: ${item.orderCount}
+
+<button class="order-btn" onclick="placeOrder(${item.menuItemId})">
+    Place Order
+</button>
+
+-------------------------
+
+`;
+                });
+            }
+
+            document.getElementById("results").innerHTML = output;
+
         })
         .catch(err => {
             document.getElementById("results").textContent = "Error fetching data.";
             console.error(err);
         });
+}
+
+// PLACE ORDER API
+function placeOrder(menuItemId) {
+    fetch("http://localhost:3000/placed-orders/place", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            menuItemId,
+            quantity: 1,
+            customerName: "Guest"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("✔ " + data.message);
+    })
+    .catch(err => console.error(err));
+}
+
+// VIEW ORDERS PAGE
+function viewOrders() {
+    window.location.href = "/placed_orders.html";
 }
 </script>
 

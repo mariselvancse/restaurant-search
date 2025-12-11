@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Placed Orders</title>
+
+    <style>
+        body { 
+            font-family: Arial; 
+            background: #f5f5f5; 
+            padding: 40px; 
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+        .cancel-btn {
+            background: red;
+            color: white;
+        }
+        .update-btn {
+            background: orange;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Placed Orders</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Dish</th>
+            <th>Restaurant</th>
+            <th>City</th>
+            <th>Quantity</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="orderRows"></tbody>
+</table>
+
+<script>
+// LOAD ORDERS
+function loadOrders() {
+    fetch("http://localhost:3000/placed-orders/all")
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.getElementById("orderRows");
+            tbody.innerHTML = "";
+
+            if (!data.orders || data.orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No orders found</td></tr>`;
+                return;
+            }
+
+            data.orders.forEach(order => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${order.orderId}</td>
+                        <td>${order.dishName}</td>
+                        <td>${order.restaurantName}</td>
+                        <td>${order.city}</td>
+                        <td>${order.quantity}</td>
+                        <td>${order.order_time}</td>
+                        <td>
+                            <button class="update-btn" onclick="updateQuantity(${order.orderId})">
+                                Update
+                            </button>
+                            <button class="cancel-btn" onclick="cancelOrder(${order.orderId})">
+                                Cancel
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+// UPDATE ORDER QUANTITY
+function updateQuantity(orderId) {
+    const newQty = prompt("Enter new quantity:");
+
+    if (!newQty || isNaN(newQty)) {
+        alert("Invalid quantity.");
+        return;
+    }
+
+    fetch(`http://localhost:3000/placed-orders/update/${orderId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity: Number(newQty) })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        loadOrders(); // refresh table
+    })
+    .catch(err => console.error(err));
+}
+
+// CANCEL ORDER
+function cancelOrder(orderId) {
+    if (!confirm("Are you sure you want to cancel this order?")) return;
+
+    fetch(`http://localhost:3000/placed-orders/cancel/${orderId}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        loadOrders(); // refresh table
+    })
+    .catch(err => console.error(err));
+}
+
+// LOAD ORDERS ON PAGE LOAD
+loadOrders();
+</script>
+
+</body>
+</html>
