@@ -1,37 +1,68 @@
-# Restaurant Search Backend
+# 🍽️ Restaurant Search & Order Management API  
+A Node.js + MySQL backend application that allows users to search restaurants by dish name, price range, and also place & manage food orders.  
+Includes a simple HTML frontend for interacting with the API.
 
-Simple Node.js + Express backend with MySQL to search restaurants by dish name and price range.
+---
 
-## What is included
-- `server.js` - main Express server
-- `db.js` - MySQL connection pool (uses env vars)
-- `routes/search.js` - route definition
-- `controllers/searchController.js` - query logic
-- `seed.sql` - SQL to create schema + sample data
-- `package.json` - dependencies & scripts
-- `.env.example` - example env variables
+## 🚀 Features
 
-## Setup (local)
+### 🔍 Search Module
+- Search restaurants by dish name  
+- Filter by minimum and maximum price  
+- Shows:
+  - Restaurant name  
+  - City  
+  - Dish name  
+  - Price  
+  - Total orders  
 
-1. Install MySQL and create a user (or use root).
-2. Import `seed.sql` into your MySQL server:
-   ```bash
-   mysql -u root -p < seed.sql
-   ```
-3. Copy `.env.example` to `.env` and set values if needed.
-4. Install dependencies:
-   ```bash
-   npm install
-   ```
-5. Start server:
-   ```bash
-   npm start
-   ```
-6. Example request:
-   ```
-   GET http://localhost:3000/search/dishes?name=biryani&minPrice=150&maxPrice=300
-   ```
+### 🛒 Order Module
+- Place new food orders  
+- View all placed orders  
+- Update order quantity  
+- Cancel orders  
+- Order history with:
+  - Dish details  
+  - Restaurant details  
+  - Quantity  
+  - Timestamp  
 
-## Notes
-- The search does a case-insensitive substring match on `dishName`.
-- Each order row represents a single ordered item for simplicity.
+### 🖥️ Frontend UI
+- `index.html` — Search restaurants & place orders  
+- `placed_orders.html` — View, update, cancel orders  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Node.js, Express.js |
+| Database | MySQL |
+| Frontend | HTML, CSS, JavaScript |
+| Hosting Options | Render / Railway / GitHub Pages |
+
+---
+
+## 📁 Project Folder Structure
+restaurant-search-backend/
+│
+├── controllers/
+│ ├── searchController.js
+│ └── placedOrderController.js
+│
+├── routes/
+│ ├── search.js
+│ └── placedOrderRoutes.js
+│
+├── public/
+│ ├── index.html
+│ └── placed_orders.html
+│
+├── db.js
+├── server.js
+├── seed.sql
+├── package.json
+└── README.md
+
+
