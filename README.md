@@ -68,25 +68,39 @@ restaurant-search-backend/
 Screenshots Section
 Search Feature
 Search Page - images/search_page.png
+
 After Search Results - images/after_search_page.png
+
 Order Placement
 Order Success - images/order_success.png
+
 Update Order Quantity
 Update Quantity Popup - images/update_quantity_page.png
+
 Cancel Order
 Cancel Order Page - images/cancel_order_page.png
+
 Cancel Success Page - images/cancel_success_page.png
+
 Placed Orders Management
 Placed Orders – First Page - images/placed_order_first_page.png
+
 Placed Orders – Main Page - images/placed_orders_page.png
+
 Database Screens
 Database Login Page - images/db_login_page.png
+
 Database After Login - images/db_after_login_page.png
+
 MySQL Tables - images/mysql_tables.png
+
 MySQL Data View - images/db_page.png
+
 MySQL Values After Update - images/mysql_updated_values.png
+
 Backend Server Screens
 Server Starting - images/server_starting_page.png
+
 Server Running - images/server_running_page.png
 
 
