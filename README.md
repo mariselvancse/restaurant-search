@@ -1,7 +1,3 @@
-<<<<<<<
-=======
->>>>>>>
-
 # 🍽️ Restaurant Search & Order Management API  
 A Node.js + MySQL backend application that allows users to search restaurants by dish name, price range, and also place & manage food orders.  
 Includes a simple HTML frontend for interacting with the API.
